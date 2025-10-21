@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fenbelts Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="title"><span class="dot"></span> Fenbelts Inventory</div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="update">Stock Update</button>
+      <button class="tab" data-tab="details">Stock Details</button>
+    </div>
+
+    <section id="panel-update" class="panel">
+      <div class="row" style="margin-bottom:8px">
+        <div class="col" style="grid-column:span 12">
+          <label>Direction</label>
+          <div class="seg" id="directionSeg">
+            <button data-dir="IN" class="active">IN (Add)</button>
+            <button data-dir="OUT">OUT (Sell)</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="lines"></div>
+      <div class="actions" style="margin-top:10px">
+        <button id="btnAddLine" class="btn icon"><span>➕</span> Add another belt</button>
+        <span class="hint">Tip: Add multiple lines, then click "Save entries".</span>
+      </div>
+
+      <div class="actions" style="margin-top:14px">
+        <button id="btnSave" class="btn primary">💾 Save entries</button>
+        <button id="btnResetForm" class="btn ghost">Reset form</button>
+      </div>
+      <div class="hint" style="margin-top:8px">Data is saved on the server (SQLite). Export/Import available in Details.</div>
+    </section>
+
+    <section id="panel-details" class="panel" style="display:none">
+      <div class="summary" id="summaryCards"></div>
+
+      <div class="toolbar">
+        <div>
+          <label>Brand</label>
+          <select id="fltBrand">
+            <option value="">All brands</option>
+          </select>
+        </div>
+        <div>
+          <label>Group</label>
+          <select id="fltGroup">
+            <option value="">All groups</option>
+            <option>A</option>
+            <option>A teeth</option>
+            <option>B</option>
+            <option>B teeth</option>
+            <option>C</option>
+            <option>D</option>
+          </select>
+        </div>
+        <div>
+          <label>Number</label>
+          <input id="fltNumber" type="number" placeholder="e.g. 42" />
+        </div>
+        <div class="right actions">
+          <button id="btnExport" class="btn">⬇️ Export JSON</button>
+          <label class="btn" for="importFile" style="cursor:pointer">⬆️ Import JSON</label>
+          <input id="importFile" type="file" accept="application/json" style="display:none" />
+          <button id="btnClearAll" class="btn danger">🗑️ Clear all data</button>
+        </div>
+      </div>
+
+      <table class="grid" id="stockTable">
+        <thead>
+          <tr>
+            <th>Brand</th>
+            <th>Group</th>
+            <th>No.</th>
+            <th>In Stock</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3 style="margin-top:20px">Recent Activity</h3>
+      <table class="grid" id="activityTable">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Dir</th>
+            <th>Brand</th>
+            <th>Group</th>
+            <th>No.</th>
+            <th>Qty</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </div>
+
+  <div id="toast" class="toast">Saved!</div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
